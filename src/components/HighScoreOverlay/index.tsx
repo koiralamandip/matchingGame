@@ -26,8 +26,7 @@ const HighScoreOverlay : FC<IOverlay> = (props: IOverlay) => {
                     <div className="sub">Note: Players with no gameplay aren't listed here</div>
                 {
                     userState.users.map((user) => {
-                        if (user.score.high >= 8)
-                            return <Entry user={user} you={user.id === userState.currentUser.id}/>
+                        return (user.score.high >= 8) && <Entry user={user} you={user.id === userState.currentUser.id}/>
                     })
                 }
                 </div>
