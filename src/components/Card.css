@@ -1,0 +1,110 @@
+.card{
+    position: relative;
+    width:150px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+    height:150px;
+    border:5px solid transparent;
+    /* background-color:rgb(84, 90, 82); */
+}
+
+._card{
+    position: absolute;
+    width: 100%;
+    height:100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    transition: transform 500ms ease-in-out;
+}
+
+.card-up{
+    background-color: rgb(171, 229, 231);
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    font-weight: 1000;
+    color: red;
+    pointer-events: none;
+}
+
+.card-down{
+    background-color: rgb(44, 74, 75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    font-weight: 1000;
+    color: #3dfb04;
+    /* pointer-events: none;   */
+}
+
+.card-down span{
+    animation:none;
+    pointer-events: none;
+    transform-origin: -10%;
+    transition: scale transform 500ms ease-in-out;
+}
+
+.card-down:hover span{
+    scale: 1.5;
+    animation: astericks 1s both ease-in-out;
+}
+
+@keyframes astericks {
+    0% {scale:1; transform: rotateZ(0deg)}
+    50% {scale:2; transform: rotateZ(180deg)}
+    100% {scale:1; transform: rotateZ(0deg)}    
+}
+
+.card-down:hover{
+    transform: rotateZ(5deg);
+}
+
+.card.visibleState .card-down{
+    transform: rotateY(-180deg);
+}
+
+.card.visibleState .card-up{
+    transform: rotateY(0deg);
+    transition: all 500ms ease-in-out;
+}
+
+.card.visibleState{
+    pointer-events: none;
+}
+
+.card.matched .card-up{
+    background-color: #3dfb04;
+    scale: 0.8;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 30px 5px #3dfb04;
+    color:black;
+}
+
+/* .card.matched::after{
+    position: absolute;
+    width:30%;
+    height:10%;
+    top:45%;
+    left:15%;
+    transform: rotateZ(50deg);
+    background-color: rgb(2, 216, 66);
+    box-shadow: 0px 0px 15px 2px rgb(2, 216, 66);
+    content: ".";
+}
+
+.card.matched::before{
+    position: absolute;
+    width:50%;
+    height:10%;
+    top:40%;
+    z-index: 1;
+    left:25%;
+    transform: rotateZ(-40deg);
+    background-color: rgb(2, 216, 66);
+    box-shadow: 0px 0px 15px 3px rgb(2, 216, 66);
+    content: ".";
+} */

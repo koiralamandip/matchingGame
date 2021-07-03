@@ -1,0 +1,12 @@
+{
+  "user": [
+    {
+      "name": "Guest",
+      "id": "1",
+      "score": {
+        "high": 8,
+        "last": 8
+      }
+    }
+  ]
+}
