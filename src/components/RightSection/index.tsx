@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect, FormEvent, MouseEvent} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { InitialState, State} from "../state/reducers/userReducer";
+import { InitialState, State} from "../../state/reducers/userReducer";
+import HighScoreOverlay from "../HighScoreOverlay/";
 
 const RightSection: FC = () => {
     
     const [name, setName] = useState("");
+    const [isHighscoreOverlay, setHighscoreOverlay] = useState(false);
 
     const userState : InitialState = useSelector((state: State) => state.userState);
     const dispatch = useDispatch();
@@ -15,6 +17,10 @@ const RightSection: FC = () => {
 
     const submitHandle = (e: FormEvent) => {
       e.preventDefault();
+      if (name === ""){
+        alert("Can't add user without name")
+        return;
+      }
       dispatch({type: "ADD_USER", payload: {name: name, score: {high: 0, last: 0}}})
     }
 
@@ -24,9 +30,14 @@ const RightSection: FC = () => {
       dispatch({type: "SET_CURRENT_USER", payload: userState.users.find(user => user.id === id)})
     }
 
+    const handleHighScoreVisibility = () => {
+      setHighscoreOverlay(!isHighscoreOverlay);
+    }
+
 
     return (
       <div className="right-screen">
+        <HighScoreOverlay visible={isHighscoreOverlay} callback={handleHighScoreVisibility}/>
         <div className="current-user-section">
           <div className="title">
             Currently playing as:
@@ -44,7 +55,7 @@ const RightSection: FC = () => {
           </div>
         </div>
         <div className="register-form-section">
-          <span className="title sub asLink">The Top 10</span>
+          <span className="title sub asLink" onClick={handleHighScoreVisibility}>Highscores</span>
           <div className="title">Register as New</div>
           <form className="title" method="post" onSubmit={submitHandle}>
             <input type="text" name="name" placeholder="Username" onChange={(e) => setName(e.target.value)}/>

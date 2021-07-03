@@ -1,29 +1,14 @@
-import React, {FC, useState, useEffect, FormEvent} from 'react';
+import React, {FC, useState, useEffect} from 'react';
 import Card from './components/Card';
 import './App.css';
-import axios from 'axios';
-import RightSection from './components/RightSection';
+import RightSection from './components/RightSection/';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState, State } from './state/reducers/userReducer';
-
-const shuffleCards = (arrayOfSize: number[]) => {
-  // let cardArray = cards();
-  for (let i = arrayOfSize.length; i > 0; i--){
-    const randomIndex = Math.floor(Math.random() * i);
-    const currentIndex = i - 1;
-    const temp = arrayOfSize[currentIndex];
-    arrayOfSize[currentIndex] = arrayOfSize[randomIndex];
-    arrayOfSize[randomIndex] = temp;
-  }
-  return arrayOfSize;
-}
-
-const arrayOfSize = (gridLen: number) => {
-  return Array.from(Array<number>(gridLen * gridLen).keys());
-}
+import { shuffleCards, arrayOfSize, getFormattedTime} from './components/functions';
+import HighScoreOverlay from './components/HighScoreOverlay';
 
 const App: FC = () => {
-  let size = 4;
+  let size = 4; // for size X size grid
   const [cardArr, setCardArr] = useState(() => {return shuffleCards(arrayOfSize(size));});
   const [timeValue, setTimeValue] = useState(0);  
   const [step, setStep] = useState(0);
@@ -95,6 +80,7 @@ const App: FC = () => {
       // console.log("OOK finished" + cardArr.length + " and " + matchedCardsCount)
       setStart(false);
       dispatch({type: "UPDATE_SCORE_DB", payload: {last: step, user: userState.currentUser}});
+      dispatch({type: "FETCH_USER"});
       // dispatch({type: "UPDATE_CURRENT_SCORE", payload: step});
       alert("Congratulation, you found the matches in " + step + " steps in " + getFormattedTime(timeValue) + " s");
 
@@ -129,12 +115,6 @@ const App: FC = () => {
     return () => clearInterval(interval);
 
   }, [start]);
-
-  const getFormattedTime = (time: number) => {
-    let sec = time % 60;
-    let min = Math.floor(time / 60);
-    return ((min <= 9)? "0" + min : min ) + ":" + ((sec <= 9)? "0" + sec : sec)
-  }
 
   return (
     <div className="App">

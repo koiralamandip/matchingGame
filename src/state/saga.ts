@@ -5,12 +5,11 @@ import { ScoreUpdateAction, User, UserAddAction } from './reducers/userReducer';
 
 function* getUser(){
     try{
-        const user: User[] = yield call(fetchUser);
+        const users: User[] = yield call(fetchUser);
         yield all([
-            put({type: "SET_CURRENT_USER", payload: user[0]}),
-            put({type: "LOAD_USER", payload: user})
+            put({type: "SET_CURRENT_USER", payload: users.find((one) => one.id==="1")}),
+            put({type: "LOAD_USER", payload: users})
         ])
-        
 
     }catch(e){
 
@@ -37,7 +36,7 @@ function* updateScore(action: ScoreUpdateAction){
 }
 
 const fetchUser = async() => {
-    const resp =  await axios.get("http://localhost:3002/user", {headers: {'Content-Type': 'application/json'}});
+    const resp =  await axios.get("http://localhost:3002/user?_sort=score[high]&_order=asc", {headers: {'Content-Type': 'application/json'}});
     // console.log(resp.data)
     return resp.data
 }
