@@ -1,3 +1,5 @@
+import { User } from "../state/reducers/userReducer";
+
 export const shuffleCards = (arrayOfSize: number[]) => {
     for (let i = arrayOfSize.length; i > 0; i--){
       const randomIndex = Math.floor(Math.random() * i);
@@ -17,4 +19,8 @@ export const getFormattedTime = (time: number) => {
     let sec = time % 60;
     let min = Math.floor(time / 60);
     return ((min <= 9)? "0" + min : min ) + ":" + ((sec <= 9)? "0" + sec : sec)
-  }
+}
+
+export const sort = (array: User[]): User[] => {
+  return array.sort((a: User, b: User) => a.score.high - b.score.high);
+}

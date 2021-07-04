@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Entry from "./Entry";
 import { InitialState, State } from "../../state/reducers/userReducer";
 import "./styles.css";
+import { sort } from "../functions";
 
 interface IOverlay{
     visible: boolean;
@@ -25,7 +26,7 @@ const HighScoreOverlay : FC<IOverlay> = (props: IOverlay) => {
                 <div className="users-score-list">
                     <div className="sub">Note: Players with no gameplay aren't listed here</div>
                 {
-                    userState.users.map((user) => {
+                    sort(userState.users).map((user) => {
                         return (user.score.high >= 8) && <Entry user={user} you={user.id === userState.currentUser.id}/>
                     })
                 }

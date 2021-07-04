@@ -21,11 +21,11 @@ const Card: FC<CardProps> = (cardProps: CardProps) => {
     return (
         <div className="card" data-value={cardProps.value} data-index={cardProps.index} onClick={handleCardClick}>
             <div className="card-down _card">
-                <span>*</span>
+                {cardProps.value}
             </div>
 
             <div className="card-up _card">
-                {cardProps.value}
+                <span>*</span>
             </div>
 
 

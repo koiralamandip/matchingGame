@@ -5,7 +5,6 @@ import RightSection from './components/RightSection/';
 import { useDispatch, useSelector } from 'react-redux';
 import { InitialState, State } from './state/reducers/userReducer';
 import { shuffleCards, arrayOfSize, getFormattedTime} from './components/functions';
-import HighScoreOverlay from './components/HighScoreOverlay';
 
 const App: FC = () => {
   let size = 4; // for size X size grid
@@ -34,7 +33,7 @@ const App: FC = () => {
     });
 
     openedCards.forEach((card) => {
-      card.classList.remove("matched");
+      // card.classList.remove("matched");
       card.classList.remove("visibleState");
 
     });
@@ -74,14 +73,13 @@ const App: FC = () => {
     }
   }
 
-
   useEffect(()=>{
     if (matchedCards.length === cardArr.length){
       // console.log("OOK finished" + cardArr.length + " and " + matchedCardsCount)
       setStart(false);
       dispatch({type: "UPDATE_SCORE_DB", payload: {last: step, user: userState.currentUser}});
-      dispatch({type: "FETCH_USER"});
-      // dispatch({type: "UPDATE_CURRENT_SCORE", payload: step});
+      // dispatch({type: "FETCH_USER"});
+      dispatch({type: "UPDATE_CURRENT_SCORE", payload: step});
       alert("Congratulation, you found the matches in " + step + " steps in " + getFormattedTime(timeValue) + " s");
 
     }
