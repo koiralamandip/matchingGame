@@ -22,7 +22,7 @@
 .current-user-section, .register-form-section{
   flex:1;
   display:grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(4, 1fr);
   width: 100%;
   box-sizing: border-box;
@@ -79,7 +79,7 @@
   scale: 1;
 }
 
-.all-time, .last-time{
+.all-time, .last-time, .gameplay{
   display: flex;
   flex-direction: column;
   justify-content: center;

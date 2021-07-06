@@ -21,12 +21,11 @@ const RightSection: FC = () => {
         alert("Can't add user without name")
         return;
       }
-      dispatch({type: "ADD_USER", payload: {name: name, score: {high: 0, last: 0}}})
+      dispatch({type: "ADD_USER", payload: {name: name, score: {high: 0, last: 0}, gameplay: 0}})
     }
 
     const handleChangeCurrent = (e: MouseEvent) =>{
       const id = (e.target as HTMLDivElement).dataset.userId;
-        // console.log(userState.users.find(user => user.id === id))
       dispatch({type: "SET_CURRENT_USER", payload: userState.users.find(user => user.id === id)})
     }
 
@@ -52,6 +51,10 @@ const RightSection: FC = () => {
           <div className="last-time">
             <span className="title sub">On Last Session</span>
             <span className="data">{userState.currentUser.score.last} steps {(userState.currentUser.score.last === 8)? "(TOP)" : ""}</span>
+          </div>
+          <div className="gameplay">
+            <span className="title sub">Gameplay</span>
+            <span className="data">{userState.currentUser.gameplay} times </span>
           </div>
         </div>
         <div className="register-form-section">

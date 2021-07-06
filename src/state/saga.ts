@@ -27,9 +27,9 @@ function* addUser(action: UserAddAction){
 
 function* updateScore(action: ScoreUpdateAction){
     try{
-        yield call(_updateScore, action.payload);
+        let user: User = yield call(_updateScore, action.payload);
         // console.log(user);
-        yield put({type: "UPDATE_CURRENT_SCORE", payload: action.payload.last})
+        yield put({type: "UPDATE_CURRENT_SCORE", payload: user})
     }catch(e){
 
     }
@@ -54,6 +54,7 @@ const _updateScore = async(payload: {last: number, user: User}) => {
     }else if (high > payload.last){
         payload.user.score.high = payload.last;
     }
+    payload.user.gameplay = payload.user.gameplay + 1;
     const response = await axios.put(`http://localhost:3002/user/${payload.user.id}`, payload.user, {headers: {'Content-Type': 'application/json'}});
     return response.data
 }

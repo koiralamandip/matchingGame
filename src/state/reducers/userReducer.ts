@@ -1,4 +1,3 @@
-import { log } from "console";
 import { combineReducers } from "redux";
 
 export type Action = UserFetchAction | UserLoadAction | UserAddAction | CurrentUserSetAction | CurrentScoreUpdate | ScoreUpdateAction;
@@ -41,7 +40,8 @@ export type User = {
     score: {
         high: number,
         last: number,
-    }
+    },
+    gameplay: number
 }
 
 export type InitialState = {
@@ -51,7 +51,7 @@ export type InitialState = {
 
 const initialState: InitialState = {
     users: [],
-    currentUser: {name: "Guest", id: "1", score: {high: 0, last: 0}}
+    currentUser: {name: "Guest", id: "1", score: {high: 0, last: 0}, gameplay: 0}
 }
 
 const userReducer = (state: InitialState = initialState, action: Action) => {
@@ -59,19 +59,13 @@ const userReducer = (state: InitialState = initialState, action: Action) => {
         // case "FETCH_USER":
         //     return {...state, users: [...state.users, {name: "AppleMan", id: 1}, {name: "BallCat", id: 2}]}
         case "LOAD_USER":
-            console.log(action.payload);
-            console.log(...action.payload);
+            // console.log(action.payload);
+            // console.log(...action.payload);
             return {...state, users: [...state.users, ...action.payload]}
         case "SET_CURRENT_USER":
             return {...state, currentUser: action.payload}
         case "UPDATE_CURRENT_SCORE":
-            let high = state.currentUser.score.high;
-            if (high < 8){
-                high = action.payload;
-            }else if (high > action.payload){
-                high = action.payload
-            }
-            return {...state, currentUser:{...state.currentUser, score:{high: high, last: action.payload}}}
+            return {...state, currentUser: action.payload}
             // return state;
         default:
             return state;

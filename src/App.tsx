@@ -79,7 +79,7 @@ const App: FC = () => {
       setStart(false);
       dispatch({type: "UPDATE_SCORE_DB", payload: {last: step, user: userState.currentUser}});
       // dispatch({type: "FETCH_USER"});
-      dispatch({type: "UPDATE_CURRENT_SCORE", payload: step});
+      // dispatch({type: "UPDATE_CURRENT_SCORE", payload: step});
       alert("Congratulation, you found the matches in " + step + " steps in " + getFormattedTime(timeValue) + " s");
 
     }

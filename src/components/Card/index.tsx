@@ -1,11 +1,12 @@
 import React, {FC, MouseEvent} from "react";
 import "./Card.css";
 
+// Interface resembling properties to the component Card 
 interface CardProps {
-    value: number;
-    index: number;
-    disabled: boolean;
-    clickEvent: (htmlElement: HTMLDivElement, index: number, value: number) => void;
+    value: number; // the value to display at the front of the card, which is to be matched with corresponding card with same value
+    index: number; // index number of the card in the grid
+    disabled: boolean; // disable flag, inorder to temporarily disable click events when necessary
+    clickEvent: (htmlElement: HTMLDivElement, index: number, value: number) => void; // callback function to call on click event
 }
 
 const Card: FC<CardProps> = (cardProps: CardProps) => {
@@ -21,11 +22,11 @@ const Card: FC<CardProps> = (cardProps: CardProps) => {
     return (
         <div className="card" data-value={cardProps.value} data-index={cardProps.index} onClick={handleCardClick}>
             <div className="card-down _card">
-                {cardProps.value}
+                <span>*</span>
             </div>
 
             <div className="card-up _card">
-                <span>*</span>
+                {cardProps.value}
             </div>
 
 
