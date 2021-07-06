@@ -3,32 +3,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { InitialState, State} from "../../state/reducers/userReducer";
 import HighScoreOverlay from "../HighScoreOverlay/";
 
+/**
+ * Functional Component which is the right section of the game screen (page)
+ * Contains sections for displying player status, registration form, highscores, and a list of registered users to choose from.
+ */
 const RightSection: FC = () => {
     
+    // State "name" to hold the name of player from registration form during registration
     const [name, setName] = useState("");
+    // state to store a flag whether to open/close the highscore box 
     const [isHighscoreOverlay, setHighscoreOverlay] = useState(false);
 
+    // Fetching user data from Redux Store
     const userState : InitialState = useSelector((state: State) => state.userState);
+    // Initializing dipatcher for later use 
     const dispatch = useDispatch();
     
+    // Dispatch action to Fetch User for the first render of this component.
+    // This dispatched action will be caught by Saga midddleware to asynchronously fetch users from json-server before dispatching...
+    //.. action to reducer for displaying the fetched users on screen
     useEffect(()=>{
         dispatch({type: "FETCH_USER"})
     }, [])
 
+    // A handler for registration form submission
     const submitHandle = (e: FormEvent) => {
-      e.preventDefault();
+      e.preventDefault(); // Prevent page reload because we don't want that
+      // Validation check for empty name
       if (name === ""){
         alert("Can't add user without name")
         return;
       }
+      // Dispatch an action of "ADD_USER" which is again caught by Saga to asynchronously add user to json server.. 
+      // ... and the recently added user is populated on screen using another dispatch of action "LOAD_USER" from Saga itself.
+      // A user with supplied name and default score/gameplay of 0 is passed for insertion.  
       dispatch({type: "ADD_USER", payload: {name: name, score: {high: 0, last: 0}, gameplay: 0}})
     }
 
+    // A handler to set the current player to a selected player from the list
+    // You can select among the players listed on right section to play the game as that player.
+    // For demonstration purpose, and considering similar games that let you use any name while storing highscore, ..
+    // No user-authentication has been implemented. So anyone can play as any player just by selecting the name.
     const handleChangeCurrent = (e: MouseEvent) =>{
       const id = (e.target as HTMLDivElement).dataset.userId;
+      // Set current user to the selected user from already fetched list of users. So no async task of calling database is necessary.
       dispatch({type: "SET_CURRENT_USER", payload: userState.users.find(user => user.id === id)})
     }
 
+    // Toggle the flag for opening/closing the HighScore box
     const handleHighScoreVisibility = () => {
       setHighscoreOverlay(!isHighscoreOverlay);
     }

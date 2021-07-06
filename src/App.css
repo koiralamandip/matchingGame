@@ -201,14 +201,14 @@
 }
 
 .startWrapper{
-  background-color: orange;
+  /* background-color: orange; */
   padding: 2px;
   border-radius: 5px;
 }
 
-.start-active{
+.start-active .start{
   animation: blink 1s ease-in-out infinite;
-}
+} 
 
 @keyframes blink {
   0% {background-color:brown;}
