@@ -40,14 +40,14 @@ function* updateScore(action: ScoreUpdateAction){
 
 // Actual function that uses axios to async. fetch users list from the server
 const fetchUser = async() => {
-    const resp =  await axios.get("http://localhost:3002/user?_sort=score[high]&_order=asc", {headers: {'Content-Type': 'application/json'}});
+    const resp =  await axios.get("https://my-json-server.typicode.com/koiralamandip/matchingJSON/user?_sort=score[high]&_order=asc", {headers: {'Content-Type': 'application/json'}});
     // console.log(resp.data)
     return resp.data
 }
 
 // Function to async. add/insert user to the server
 const _addUser = async(payload: User) => {
-    const response = await axios.post("http://localhost:3002/user", payload,{headers: {'Content-Type': 'application/json'}});
+    const response = await axios.post("https://my-json-server.typicode.com/koiralamandip/matchingJSON/user", payload,{headers: {'Content-Type': 'application/json'}});
     return response.data
 }
 
@@ -66,7 +66,7 @@ const _updateScore = async(payload: {last: number, user: User}) => {
     // On every update of user status, we know the player played the game one more time
     payload.user.gameplay = payload.user.gameplay + 1;
     
-    const response = await axios.put(`http://localhost:3002/user/${payload.user.id}`, payload.user, {headers: {'Content-Type': 'application/json'}});
+    const response = await axios.put(`https://my-json-server.typicode.com/koiralamandip/matchingJSON/user/${payload.user.id}`, payload.user, {headers: {'Content-Type': 'application/json'}});
     return response.data
 }
 
