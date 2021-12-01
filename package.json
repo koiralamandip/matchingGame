@@ -13,6 +13,7 @@
     "@types/react-dom": "^17.0.8",
     "@types/react-redux": "^7.1.16",
     "axios": "^0.21.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -20,8 +21,7 @@
     "redux": "^4.1.0",
     "redux-saga": "^1.1.3",
     "typescript": "^4.3.5",
-    "web-vitals": "^1.1.2",
-    "gh-pages": "^2.0.1",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "json-serve": "json-server data/db.json -p 3002"
+    "json-serve": "json-server https://my-json-server.typicode.com/koiralamandip/matchingJSON/db"
   },
   "eslintConfig": {
     "extends": [
